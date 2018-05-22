@@ -1,0 +1,5 @@
+log.*
+*.OpenFOAM
+*.png
+Py*
+**/venv/
