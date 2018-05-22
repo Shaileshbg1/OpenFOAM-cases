@@ -1,0 +1,80 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      changeDictionaryDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+boundary
+{
+    skin
+    {
+        type            patch;
+    }
+    
+    adiabatic_wall
+    {
+        type            patch;
+    }
+}
+
+
+T
+{
+    internalField   uniform 37;
+
+    boundaryField
+    {
+       
+        adiabatic_wall
+      {
+        type            zeroGradient;
+      }
+
+       skin
+      {
+        type            externalWallHeatFluxTemperature;
+
+        mode            coefficient;
+
+        Ta              constant 22;
+        h               uniform 13.5;
+       // thicknessLayers (0.1 0.2 0.3 0.4);
+       // kappaLayers     (1 2 3 4);
+
+        kappaMethod     solidThermo;
+
+        value           uniform 37;
+       }
+
+
+/*
+	skin
+      {
+        type            fixedValue;
+        value           uniform 22;
+      }
+*/
+
+         tissue_to_gland
+        {
+            type            compressible::turbulentTemperatureCoupledBaffleMixed;
+            Tnbr            T;
+            kappaMethod     solidThermo;
+            value           uniform 37;
+        }
+
+       
+    }
+}
+
+// ************************************************************************* //

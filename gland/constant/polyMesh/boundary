@@ -1,0 +1,92 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5.x                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       polyBoundaryMesh;
+    location    "constant/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+10
+(
+    thoraic_wall_gland
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          5768;
+        startFace       1502764;
+    }
+    gland_ext
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          0;
+        startFace       1508532;
+    }
+    tumor_ext
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          0;
+        startFace       1508532;
+    }
+    muscle_ext
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          0;
+        startFace       1508532;
+    }
+    thoraic_wall_muscle
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          6144;
+        startFace       1508532;
+    }
+    muscle_int
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          0;
+        startFace       1514676;
+    }
+    adiabatic_wall
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          1256;
+        startFace       1514676;
+    }
+    skin
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          16932;
+        startFace       1515932;
+    }
+    gland_int
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          0;
+        startFace       1532864;
+    }
+    tumor_int
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          0;
+        startFace       1532864;
+    }
+)
+
+// ************************************************************************* //

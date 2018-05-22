@@ -1,0 +1,67 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      T;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 1 0 0 0];
+
+internalField   uniform 30;
+
+boundaryField
+{
+    //- Set patchGroups for constraint patches
+ //   #includeEtc "caseDicts/setConstraintTypes"
+
+ //    thoraic_wall_muscle
+ //   {
+ //       type            fixedValue;
+ //       value           uniform 37;
+ //   }
+  
+ //    thoraic_wall_gland
+ //   {
+ //       type            fixedValue;
+ //       value           uniform 37;
+ //   }
+
+     adiabatic_wall
+    {
+        type            zeroGradient;
+    }
+
+	gland_int
+    {
+       type            zeroGradient;
+    }
+
+     skin
+    {
+        type            externalWallHeatFluxTemperature;
+
+        mode            coefficient;
+
+        Ta              constant 22;
+        h               uniform 13.5;
+       // thicknessLayers (0.1 0.2 0.3 0.4);
+       // kappaLayers     (1 2 3 4);
+
+        kappaMethod     solidThermo;
+
+        value           uniform 27;
+    }
+
+    
+}
+
+// ************************************************************************* //

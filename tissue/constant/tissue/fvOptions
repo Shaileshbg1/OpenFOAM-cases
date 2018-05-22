@@ -1,0 +1,95 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      fvOptions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+/* 
+metabolic_heat_generation_tissue
+{
+    type            scalarSemiImplicitSource;
+    active          true;
+ 
+    scalarSemiImplicitSourceCoeffs
+    {
+        selectionMode   all; // all, cellSet, cellZone, points
+        //cellZone        tissue;
+        volumeMode      specific; // absolute;
+        injectionRateSuSp
+        {
+           h    (400 0);
+        }
+    }
+}
+*/
+blood_perfusion_tissue
+{
+    type          scalarCodedSource;
+    name    sourceTime;
+    active          true;
+    
+
+    scalarCodedSourceCoeffs
+    {
+        
+        selectionMode   all;
+        //cellZone        tissue;
+	fields      (h);
+
+        codeInclude
+        #{
+
+        #};
+
+        codeCorrect
+        #{
+            Pout<< "**codeCorrect**" << endl;
+        #};
+
+        codeAddSup
+        #{
+	     //scalar Tvol = 0;
+            //const Time& time = mesh().time();
+            const volScalarField& T = mesh_.lookupObject<volScalarField>("T"); 
+            //Tvol = Tm.weightedAverage(mesh_.V()).value();                //averageValue of the volScalarField
+            //const vectorField& C = mesh_.C();                    //List of cellcentres
+	    const scalarField& V = mesh_.V();
+            scalarField& hSource = eqn.source();                //defining source
+            forAll(T, i)
+            {
+                hSource[i] -= (T[i] - 37)*800*V[i];  
+            }
+            Pout << "***codeAddSup***" << endl;
+        #};
+
+        codeSetValue
+        #{
+            Pout<< "**codeSetValue**" << endl;
+        #};
+
+        // Dummy entry. Make dependent on above to trigger recompilation
+        code
+        #{
+            $codeInclude
+            $codeCorrect
+            $codeAddSup
+            $codeSetValue
+        #};
+    }
+
+    sourceTimeCoeffs
+    {
+         $scalarCodedSourceCoeffs;
+    }
+}
+

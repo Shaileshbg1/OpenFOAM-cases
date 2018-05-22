@@ -1,0 +1,49 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.7.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      toleranceDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+     
+//- Point merge tolerance
+pointMergeTol 0.3;
+
+//- Edge merge tolerance
+edgeMergeTol 0.05;
+
+//- Integral match point adjustment tolerance
+integralAdjTol 0.15;
+
+//- Edge intersection master catch fraction
+edgeMasterCatchFraction 0.4;
+
+//- Edge end cut-off tolerance
+edgeEndCutoffTol 0.0001;
+
+//- Edge intersection co-planar tolerance
+edgeCoPlanarTol 0.8;
+
+tolerances
+	{
+//pointMergeTol            0.05;
+pointMergeTol            0.1;
+edgeMergeTol             0.01;
+nFacesPerSlaveEdge       5   ;
+edgeFaceEscapeLimit      10  ;
+integralAdjTol           0.05;
+edgeMasterCatchFraction  0.4 ;
+edgeCoPlanarTol          0.8 ;
+edgeEndCutoffTol         0.0001;
+	}
+
+
+// ************************************************************************* //
