@@ -97,9 +97,9 @@ castellatedMeshControls
     // This is a featureEdgeMesh, read from constant/triSurface for now.
     features
     (
-        {
-            file "gland.eMesh";
-            levels ((0.1 1));
+       {
+           file "gland.eMesh";
+           levels ((0.1 1));
         }
     );
 

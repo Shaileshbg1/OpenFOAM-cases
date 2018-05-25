@@ -82,7 +82,7 @@ castellatedMeshControls
         {
             file "muscle.eMesh";
             levels ((0.1 1));
-        }
+       }
     );
 
 
