@@ -50,5 +50,21 @@ functions
     
     #includeFunc probes
     #includeFunc singleGraph
+    #includeFunc surfaces
+ 
+   minMaxT
+   {
+     type    fieldMinMax;
+     region  tissue;
+     functionObjectLibs ("libfieldFunctionObjects.so");
+     fields
+      (
+        T
+      );
+     mode  magnitude;
+     outputControl  timeStep;
+     outputInterval 1;
+   }
+ 
 }
 // ************************************************************************* //

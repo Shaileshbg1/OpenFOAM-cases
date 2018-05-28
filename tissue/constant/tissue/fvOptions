@@ -14,7 +14,7 @@ FoamFile
     object      fvOptions;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-/* 
+ 
 metabolic_heat_generation_tissue
 {
     type            scalarSemiImplicitSource;
@@ -31,7 +31,7 @@ metabolic_heat_generation_tissue
         }
     }
 }
-*/
+
 blood_perfusion_tissue
 {
     type          scalarCodedSource;
