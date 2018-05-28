@@ -18,6 +18,7 @@ Description
 
 fields       (T);
 region tissue;
+surfaceFormat foam;
 
 surfaces
 (

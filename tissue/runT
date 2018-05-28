@@ -10,6 +10,9 @@ runApplication snappyHexMesh -overwrite               # snappy hex mesh to chise
 # CHECK MESH 
 runApplication checkMesh -constant -allGeometry -allTopology
 
+# Case report
+runApplication pyFoamCaseReport.py --short-bc .
+
 cd constant/
 mv polyMesh tissue/polyMesh
 cd ..

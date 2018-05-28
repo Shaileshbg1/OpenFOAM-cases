@@ -48,10 +48,11 @@ runTimeModifiable true;
 functions
 {
     
-    #includeFunc probes
-    #includeFunc singleGraph
-    #includeFunc surfaces
- 
+  //  #includeFunc probes
+   // #includeFunc singleGraph
+   #includeFunc surfaces
+  //  #includeFunc sample
+ /*
    minMaxT
    {
      type    fieldMinMax;
@@ -99,7 +100,48 @@ functions
             }
         );
     }
+*/
 
-    
+  /*   faceObj1
+    {
+        type            faceSource;
+        functionObjectLibs ("libfieldFunctionObjects.so");
+
+        enabled         true;
+        outputControl   outputTime;
+
+        // Output to log&file (true) or to file only
+        log             true;
+
+        // Output field values as well
+        valueOutput     true;
+
+        // Type of source: patch/faceZone/sampledSurface
+        source          patch;
+
+//         // if patch or faceZone: name of patch or faceZone
+         sourceName      skin;
+
+        //// if sampledSurface: dictionary with a sampledSurface
+        //// Note: will not sample surface fields.
+        //sampledSurfaceDict
+        //{
+           // Sampling on triSurface
+           //type        sampledTriSurfaceMesh;
+           //surface     Scale_1.stl;
+           //source      cells;  // sample cells or boundaryFaces
+           //interpolate false;
+        //}
+
+        // Operation: areaAverage/sum/weightedAverage ...
+        operation       areaNormalIntegrate;
+
+        fields
+        (
+            T
+            
+        );
+    }
+*/
 }
 // ************************************************************************* //
