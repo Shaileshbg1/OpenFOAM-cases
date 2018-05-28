@@ -44,20 +44,10 @@ timeFormat      general;
 timePrecision   6;
 
 runTimeModifiable true;
-/*
+
 functions
 {
-  fieldMinMax1
-    {
-        type        writeCellCentres;
-        libs        ("libfieldFunctionObjects.so");
-        
-        writeToFile yes;
-        log         yes;
-        location    yes;
-        mode        magnitude;
-        fields      (T);
-    }
+    
+    #includeFunc probes
 }
-*/
 // ************************************************************************* //
