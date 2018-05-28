@@ -49,5 +49,6 @@ functions
 {
     
     #includeFunc probes
+    #includeFunc singleGraph
 }
 // ************************************************************************* //
