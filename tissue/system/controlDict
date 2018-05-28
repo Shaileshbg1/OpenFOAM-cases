@@ -66,5 +66,40 @@ functions
      outputInterval 1;
    }
  
+    surfaceSampling
+    {
+        // Sample near-wall velocity
+
+        type surfaces;
+        region tissue;
+
+        // Where to load it from (if not already in solver)
+        libs            ("libsampling.so");
+        writeControl    writeTime;
+
+        interpolationScheme cellPoint;
+
+        surfaceFormat vtk;
+
+        // Fields to be sampled
+        fields
+        (
+            T
+        );
+
+        surfaces
+        (
+            nearWall
+            {
+                type            patchInternalField;
+                patches         ( skin );
+                distance        1E-6;
+                interpolate     true;
+                triangulate     false;
+            }
+        );
+    }
+
+    
 }
 // ************************************************************************* //
