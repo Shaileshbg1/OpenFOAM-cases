@@ -89,6 +89,7 @@ runApplication splitMeshRegions -cellZones -overwrite
 
 # setting initial conditions for each region in 0
 tee 0/gland/T 0/muscle/T 0/tissue/T 0/tumor/T < T >/dev/null
+tee 0/tissue/dataFile < dataFile >/dev/null
 tee 0/gland/p 0/muscle/p 0/tissue/p 0/tumor/p < p >/dev/null
 
 # RUN changeDictionary TO DEFINE INITIAL CONDITIONS FOR EACH REGION 
