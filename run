@@ -109,7 +109,7 @@ runApplication pyFoamPlotRunner.py --hardcopy --progress chtMultiRegionSimpleFoa
 runApplication pyFoamRedoPlot.py --csv-files --pickle-file Gnuplotting.analyzed/pickledPlots
 
 # RUN CASE REPORT TO CHECK THE BOUNDARY CONDITIONS
-runApplication pyFoamCaseReport.py --short-bc .
+runApplication pyFoamCaseReport.py --full-report .
 
 # Decompose
 #runApplication decomposePar -allRegions

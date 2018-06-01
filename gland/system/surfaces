@@ -19,45 +19,61 @@ Description
 fields       (T);
 region tissue;
 surfaceFormat foam;
+libs            ("libsampling.so");
+writeControl    writeTime;
+interpolationScheme cellPoint;
 
 surfaces
 (
- /*   xNormal
-    {
-        $cuttingPlane;
-    }
-
-    yNormal
-    {
-        $cuttingPlane;
-        pointAndNormalDict
-        {
-            normalVector $y;      // Overrides default normalVector (1 0 0)
-        }                         // $y: macro for (0 1 0)
-    }
-
-    zNormal
-    {
-        $cuttingPlane;
-        pointAndNormalDict
-        {
-            basePoint    (0 0 2); // Overrides default basePoint (0 0 0)
-            normalVector $z;      // $y: macro for (0 0 1)
-        }
-    }
-
-    p100
-    {
-        $isosurface;
-        isoField    p;
-        isoValue    100;
-    }
-*/
-    skin
+     skin
     {
         $patchSurface;
         patches     (skin);
+        interpolate     true;
     }
 );
 
+/*
+surfaces
+{
+    type            surfaces;
+    libs            ("libsampling.so");
+    writeControl    writeTime;
+
+    surfaceFormat   vtk;
+    fields          (p U Q);
+
+    interpolationScheme cellPoint;
+
+    surfaces
+    (
+        zNormal
+        {
+            type            cuttingPlane;
+            planeType       pointAndNormal;
+            pointAndNormalDict
+            {
+                point   (0 0 0);
+                normal  (0 0 1);
+            }
+            interpolate     true;
+        }
+
+        isoQ
+        {
+            type            isoSurface;
+            isoField        Q;
+            isoValue        1000;
+            interpolate     true;
+        }
+
+        propeller
+        {
+            type            patch;
+            patches         ("propeller.*");
+            interpolate     true;
+        }
+    );
+}
+*/
 // ************************************************************************* //

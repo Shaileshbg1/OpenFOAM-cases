@@ -25,6 +25,7 @@ cd ../tissue/
 rm -rf log*
 rm -rf constant/polyMesh
 
+
 cd ../tumor/
 rm -rf log*
 rm -rf constant/polyMesh
