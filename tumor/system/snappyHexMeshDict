@@ -27,7 +27,7 @@ geometry
     tumor_int
     {
         type searchableSphere;
-        centre (0.01 0.0495 0.01);
+        centre (0.01 0.04 0.01);
         radius 0.01;
     }
 };
@@ -137,7 +137,7 @@ castellatedMeshControls
     // section reachable from the locationInMesh is kept.
     // NOTE: This point should never be on a face, always inside a cell, even
     // after refinement.
-     locationInMesh (0.01 0.0505 0.01);
+     locationInMesh (0.01 0.041 0.01);
 
     // Whether any faceZones (as specified in the refinementSurfaces)
     // are only on the boundary of corresponding cellZones or also allow
