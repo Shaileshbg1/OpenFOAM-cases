@@ -27,7 +27,7 @@ geometry
     tumor_int
     {
         type searchableSphere;
-        centre (0 0.0495 0);
+        centre (0.01 0.0495 0.01);
         radius 0.01;
     }
 };
@@ -81,10 +81,10 @@ castellatedMeshControls
     // This is a featureEdgeMesh, read from constant/triSurface for now.
     features
     (
-	//{
-        //    file "tumor.eMesh";
-         //   levels ((0.1 1));
-       // }
+	{
+            file "tumor.eMesh";
+            levels ((0.1 1));
+        }
     );
 
 
@@ -137,7 +137,7 @@ castellatedMeshControls
     // section reachable from the locationInMesh is kept.
     // NOTE: This point should never be on a face, always inside a cell, even
     // after refinement.
-     locationInMesh (0 0.0505 0);
+     locationInMesh (0.01 0.0505 0.01);
 
     // Whether any faceZones (as specified in the refinementSurfaces)
     // are only on the boundary of corresponding cellZones or also allow
@@ -173,10 +173,10 @@ snapControls
         nFeatureSnapIter 10;
 
         //- Detect (geometric) features by sampling the surface (default=false)
-        implicitFeatureSnap false;
+        implicitFeatureSnap true;
 
         //- Use castellatedMeshControls::features (default = true)
-        explicitFeatureSnap true;
+        explicitFeatureSnap false;
     
 }
 

@@ -50,7 +50,7 @@ actions
         source sphereToCell;
         sourceInfo
        {
-        centre   (0 0.0495 0);
+        centre   (0.01 0.0495 0.01);
         radius   0.01;
        }
     }
@@ -102,7 +102,7 @@ actions
         source sphereToCell;
         sourceInfo
        {
-        centre   (0 0.0495 0);
+        centre   (0.01 0.0495 0.01);
         radius   0.01;
        }
     }

@@ -20,7 +20,7 @@ solvers
     {
         solver           PCG;
         preconditioner   DIC;
-        tolerance        1e-04;
+        tolerance        1e-08;
         relTol           0.01;
     }
     
@@ -34,7 +34,7 @@ SIMPLE
     {
         h
         {
-            tolerance 1e-04;
+            tolerance 1e-08;
             relTol 0.1;
         }
     }   

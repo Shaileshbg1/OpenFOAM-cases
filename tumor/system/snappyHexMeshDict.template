@@ -85,10 +85,10 @@ castellatedMeshControls
     // This is a featureEdgeMesh, read from constant/triSurface for now.
     features
     (
-	//{
-        //    file "tumor.eMesh";
-         //   levels ((0.1 1));
-       // }
+	{
+            file "tumor.eMesh";
+            levels ((0.1 1));
+        }
     );
 
 
@@ -177,10 +177,10 @@ snapControls
         nFeatureSnapIter 10;
 
         //- Detect (geometric) features by sampling the surface (default=false)
-        implicitFeatureSnap false;
+        implicitFeatureSnap true;
 
         //- Use castellatedMeshControls::features (default = true)
-        explicitFeatureSnap true;
+        explicitFeatureSnap false;
     
 }
 

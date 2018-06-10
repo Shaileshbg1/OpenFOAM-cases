@@ -66,12 +66,13 @@ blood_perfusion_gland
             //const Time& time = mesh().time();
             const volScalarField& T = mesh_.lookupObject<volScalarField>("T"); 
             //Tvol = Tm.weightedAverage(mesh_.V()).value(); 	              		 //averageValue of the volScalarField
-            //const vectorField& C = mesh_.C();                   			 //List of cellcentres
+            const vectorField& C = mesh_.C();                   			 //List of cellcentres
 	    const scalarField& V = mesh_.V();
+	    const volScalarField z = T.mesh().C() & vector(1,1,1);
             scalarField& hSource = eqn.source();               				 //defining source
-            forAll(T, i)
+            forAll(C, i)
             {
-                hSource[i] -= (37 -T[i])*24000*V[i];
+                hSource[i] -= (37 -z[i])*24000*V[i];
             }
             Pout << "***codeAddSup***" << endl;
         #};
