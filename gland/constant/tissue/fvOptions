@@ -66,10 +66,12 @@ blood_perfusion_tissue
 	    const scalarField& V = mesh_.V();
 	    const volScalarField z = T.mesh().C() & vector(1,1,1);
             scalarField& hSource = eqn.source();                //defining source
-            forAll(C, i)
+
+	    forAll(T, i)
             {
-                hSource[i] -= (37 -z[i])*800*V[i];
+                hSource[i] -= (37 -T[i])*800*V[i];
             }
+
             Pout << "***codeAddSup***" << endl;
         #};
 

@@ -73,9 +73,10 @@ blood_perfusion_tumor
 	    const volScalarField z = T.mesh().C() & vector(1,1,1);
 	    //const scalar meanT = sum(mag(Tm)*V)/sum(V);
             scalarField& hSource = eqn.source();                //defining source
-            forAll(C, i)
+
+	    forAll(T, i)
             {
-                hSource[i] -= (37 - z[i])*48000*V[i];
+                hSource[i] -= (37 - T[i])*48000*V[i];
 		
             }
 	    
