@@ -19,7 +19,7 @@ cleanCase
 runApplication pyFoamFromTemplate.py system/blockMeshDict "{'te':0.06}"
 rm log.pyFoamFromTemplate.py
 runApplication blockMesh                          # base mesh for tumor region
-runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'x':0, 'y':0.0495, 'z':0, 'r':0.01}"
+runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'x':0.01, 'y':0.04, 'z':0.01, 'r':0.01}"
 rm log.pyFoamFromTemplate.py
 runApplication snappyHexMesh -overwrite               # snappy hex mesh to chisel into curved shape
 
@@ -39,7 +39,7 @@ cleanCase
 runApplication pyFoamFromTemplate.py system/blockMeshDict "{'gr':0.067}"
 rm log.pyFoamFromTemplate.py
 runApplication blockMesh                          # base mesh for gland region
-runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'x':0, 'y':0.0495, 'z':0, 'r':0.01, 'mr':0.022, 'gr':0.067}"
+runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'x':0.01, 'y':0.04, 'z':0.01, 'r':0.01, 'mr':0.022, 'gr':0.067}"
 rm log.pyFoamFromTemplate.py
 runApplication snappyHexMesh -overwrite # snappy hex mesh to chisel into curved shape
 
@@ -80,7 +80,7 @@ runApplication stitchMesh -partial -toleranceDict toleranceDict -overwrite tumor
 runApplication checkMesh #-constant -allGeometry -allTopology
 
 # TOPOSET TO DEFINE DIFFERENT CELL ZONES
-runApplication pyFoamFromTemplate.py system/topoSetDict  "{'x':0, 'y':0.0495, 'z':0, 'r':0.01, 'mr':0.022, 'gr':0.067, 'sr':0.072}"
+runApplication pyFoamFromTemplate.py system/topoSetDict  "{'x':0.01, 'y':0.04, 'z':0.01, 'r':0.01, 'mr':0.022, 'gr':0.067, 'sr':0.072}"
 rm log.pyFoamFromTemplate.py
 runApplication topoSet
 

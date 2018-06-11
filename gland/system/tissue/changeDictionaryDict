@@ -39,7 +39,7 @@ T
       {
         type            zeroGradient;
       }
-
+/*
        skin
       {
         type            externalWallHeatFluxTemperature;
@@ -55,16 +55,16 @@ T
 
         value           uniform 37;
        }
+*/
 
 
-/*
 	skin
       {
         type            fixedValue;
         value           #include "dataFile";
       }
 
-*/
+
          tissue_to_gland
         {
             type            compressible::turbulentTemperatureCoupledBaffleMixed;
