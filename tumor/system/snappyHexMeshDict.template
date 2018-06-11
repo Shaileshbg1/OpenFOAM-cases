@@ -130,6 +130,13 @@ castellatedMeshControls
 
     refinementRegions
     {
+/*
+	tumor_int
+	{
+	mode inside;
+	levels ((1.0 3));  // refinement level 4 (1.0 entry ignored)
+	}
+*/
     }
 
 
