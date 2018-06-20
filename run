@@ -98,6 +98,8 @@ do
    runApplication -s $i changeDictionary -region $i
 done
 
+runApplication setFields                      # set fields to check a cylinder with higher conductivity
+
 # SETTING METABOLIC HEAT GENERATION RATE OF TUMOR
 runApplication pyFoamFromTemplate.py constant/tumor/fvOptions "{'r':0.005}"
 
