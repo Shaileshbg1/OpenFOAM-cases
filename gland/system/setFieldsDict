@@ -1,0 +1,47 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+defaultFieldValues
+(
+    transport
+    {
+        kappa   0.48;
+    }
+);
+
+regions
+(
+
+// Cells with centre within cylinder
+    
+    cylinderToCell
+    {
+         p1       (0.01 0.04 0.01); // start point on cylinder axis
+         p2       (0.01 0.072 0.01);   // end point on cylinder axis
+         radius   0.005;
+        fieldValues
+        (
+         transport
+    	  {
+        kappa   0.1;
+    	  }
+        );
+    }
+);
+
+
+// ************************************************************************* //
