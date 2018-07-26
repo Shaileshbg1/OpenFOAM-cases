@@ -73,7 +73,7 @@ blood_perfusion_gland
             
 	    forAll(T, i)
             {
-                hSource[i] -= (37 -T[i])*24000*V[i];
+                hSource[i] -= (37 -T[i])*2400*V[i];
             }
 
 
