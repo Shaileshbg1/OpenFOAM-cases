@@ -71,7 +71,7 @@ blood_perfusion_gland
             scalarField& hSource = eqn.source();               				 //defining source
             forAll(T, i)
             {
-                hSource[i] -= (37 -T[i])*24000*V[i];
+                hSource[i] -= (37 -T[i])*2400*V[i];
             }
             Pout << "***codeAddSup***" << endl;
         #};
