@@ -1,0 +1,77 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5.x                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       surfaceScalarField;
+    location    "0";
+    object      meshPhi;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 3 -1 0 0 0 0];
+
+internalField   uniform 0;
+
+boundaryField
+{
+    thoraic_wall_gland
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    gland_ext
+    {
+        type            calculated;
+        value           nonuniform 0();
+    }
+    tumor_ext
+    {
+        type            calculated;
+        value           nonuniform 0();
+    }
+    muscle_ext
+    {
+        type            calculated;
+        value           nonuniform 0();
+    }
+    thoraic_wall_muscle
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    muscle_int
+    {
+        type            calculated;
+        value           nonuniform 0();
+    }
+    adiabatic_wall
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    skin
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    gland_int
+    {
+        type            calculated;
+        value           nonuniform 0();
+    }
+    tumor_int
+    {
+        type            calculated;
+        value           nonuniform 0();
+    }
+}
+
+
+// ************************************************************************* //
