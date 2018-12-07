@@ -1,0 +1,35 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5.x                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     0.0;
+    format      ascii;
+    class       polyBoundaryMesh;
+    location    "constant/tumor/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+1
+(
+    tumor_to_gland
+    {
+        type            mappedWall;
+        inGroups        1 ( wall );
+        nFaces          820;
+        startFace       2000;
+        sampleMode      nearestPatchFace;
+        sampleRegion    gland;
+        samplePatch     gland_to_tumor;
+    }
+
+)
+
+
+// ************************************************************************* //

@@ -16,14 +16,25 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 
-3
+4
 (
     thoraic_wall_gland
     {
         type            patch;
         inGroups        1 ( wall );
         nFaces          5768;
-        startFace       594312;
+        startFace       592924;
+    }
+
+    gland_to_tumor
+    {
+        type            mappedWall;
+        inGroups        1 ( wall );
+        nFaces          820;
+        startFace       598692;
+        sampleMode      nearestPatchFace;
+        sampleRegion    tumor;
+        samplePatch     tumor_to_gland;
     }
 
     gland_to_muscle
@@ -31,7 +42,7 @@ FoamFile
         type            mappedWall;
         inGroups        1 ( wall );
         nFaces          16432;
-        startFace       600080;
+        startFace       599512;
         sampleMode      nearestPatchFace;
         sampleRegion    muscle;
         samplePatch     muscle_to_gland;
@@ -41,8 +52,8 @@ FoamFile
     {
         type            mappedWall;
         inGroups        1 ( wall );
-        nFaces          41740;
-        startFace       616512;
+        nFaces          41738;
+        startFace       615944;
         sampleMode      nearestPatchFace;
         sampleRegion    tissue;
         samplePatch     tissue_to_gland;

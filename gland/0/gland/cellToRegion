@@ -25,6 +25,11 @@ boundaryField
     {
         type            zeroGradient;
     }
+    gland_to_tumor
+    {
+        type            calculated;
+        value           uniform 0;
+    }
     gland_to_muscle
     {
         type            calculated;

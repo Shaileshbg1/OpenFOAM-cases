@@ -13,9 +13,11 @@ FoamFile
     object      snappyHexMeshDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+$$ x_cord = x
+$$ y_cord = y
+$$ z_cord = z
+$$ r_val = r
 
-$$ gland_radius = gr
-$$ muscle_radius = mr
 
 // Which of the steps to run
 castellatedMesh true;
@@ -35,14 +37,20 @@ geometry
     {
         type searchableSphere;
         centre (0 0 0);
-        radius $gland_radius$;
+        radius 0.067;
     }
     
-    muscle_ext
+    tumor_ext
+    {
+        type searchableSphere;
+        centre ($x_cord$ $y_cord$ $z_cord$);
+        radius $r_val$;
+    }
+     muscle_ext
     {
         type searchableSphere;
         centre (0 0 0);
-        radius $muscle_radius$;
+        radius 0.022;
     }
 };
 
@@ -120,6 +128,18 @@ castellatedMeshControls
         }
         
          
+                "tumor_ext.*"
+        {
+            // Surface-wise min and max refinement level
+            level (1 1);
+
+            // Optional specification of patch type (default is wall). No
+            // constraint types (cyclic, symmetry) etc. are allowed.
+            patchInfo
+            {
+                type        wall;
+            }
+        } 
                  "muscle_ext.*"
         {
             // Surface-wise min and max refinement level
@@ -135,7 +155,7 @@ castellatedMeshControls
      }
 
     // Resolve sharp angles 
-    resolveFeatureAngle 60;
+    resolveFeatureAngle 30;
 
 
     // Region-wise refinement
@@ -164,7 +184,7 @@ castellatedMeshControls
     // section reachable from the locationInMesh is kept.
     // NOTE: This point should never be on a face, always inside a cell, even
     // after refinement.
-     locationInMesh (0 $muscle_radius + 0.002$ 0);
+    locationInMesh (0 0.023 0);
 
 
     // Whether any faceZones (as specified in the refinementSurfaces)
@@ -310,4 +330,3 @@ mergeTolerance 1e-6;
 
 
 // ************************************************************************* //
-

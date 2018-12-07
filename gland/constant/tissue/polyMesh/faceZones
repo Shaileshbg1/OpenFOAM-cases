@@ -15,7 +15,28 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-0
-()
+3
+(
+tumor_exttumor_intMasterZone
+{
+    type faceZone;
+faceLabels      0();
+flipMap         0();
+}
+
+tumor_exttumor_intSlaveZone
+{
+    type faceZone;
+faceLabels      0();
+flipMap         0();
+}
+
+tumor_exttumor_intCutFaceZone
+{
+    type faceZone;
+faceLabels      0();
+flipMap         0();
+}
+)
 
 // ************************************************************************* //

@@ -15,63 +15,77 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-8
+10
 (
     thoraic_wall_gland
     {
         type            wall;
         inGroups        1(wall);
         nFaces          5768;
-        startFace       1500160;
+        startFace       1501590;
     }
     gland_ext
     {
         type            wall;
         inGroups        1(wall);
         nFaces          0;
-        startFace       1505928;
+        startFace       1507358;
+    }
+    tumor_ext
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          0;
+        startFace       1507358;
     }
     muscle_ext
     {
         type            wall;
         inGroups        1(wall);
         nFaces          0;
-        startFace       1505928;
+        startFace       1507358;
     }
     thoraic_wall_muscle
     {
         type            wall;
         inGroups        1(wall);
         nFaces          6144;
-        startFace       1505928;
+        startFace       1507358;
     }
     muscle_int
     {
         type            wall;
         inGroups        1(wall);
         nFaces          0;
-        startFace       1512072;
+        startFace       1513502;
     }
     adiabatic_wall
     {
         type            wall;
         inGroups        1(wall);
         nFaces          1256;
-        startFace       1512072;
+        startFace       1513502;
     }
     skin
     {
         type            wall;
         inGroups        1(wall);
         nFaces          16932;
-        startFace       1513328;
+        startFace       1514758;
     }
     gland_int
     {
         type            wall;
         inGroups        1(wall);
         nFaces          0;
-        startFace       1530260;
+        startFace       1531690;
+    }
+    tumor_int
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          0;
+        startFace       1531690;
     }
 )
 

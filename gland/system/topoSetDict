@@ -15,7 +15,6 @@ FoamFile
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-
 actions
 (
     // muscle
@@ -43,7 +42,30 @@ actions
         }
     }
 
-
+    // tumor
+    {
+        name    tumorCellSet;
+        type    cellSet;
+        action  new;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   (0 0.0495 0);
+        radius   0.008;
+       }
+    }
+   
+    // set tumor cell zone from cell set
+    {
+        name    tumor;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set tumorCellSet;
+        }
+    }
      
       // gland
     {
@@ -71,7 +93,20 @@ actions
        }
     }
 
+    // gland-tumor
 
+     {
+        name    glandCellSet;
+        type    cellSet;
+        action  delete;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   (0 0.0495 0);
+        radius   0.008;
+       }
+    }
+    
     // set gland cell zone from cell set
     {
         name    gland;

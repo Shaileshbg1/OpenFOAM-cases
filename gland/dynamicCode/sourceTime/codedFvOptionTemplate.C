@@ -32,7 +32,7 @@ License
 #include "fvMatrix.H"
 
 //{{{ begin codeInclude
-#line 51 "/home/shailesh/Niramai/Niramai_cases/with_subprocess_no_tumor/gland/constant/tissue/fvOptions.blood_perfusion_tissue.scalarCodedSourceCoeffs"
+#line 52 "/home/shailesh/Niramai/Niramai_cases/with_subprocess/gland/constant/tumor/fvOptions.blood_perfusion_tumor.scalarCodedSourceCoeffs"
 
 //}}} end codeInclude
 
@@ -57,11 +57,11 @@ namespace fv
 extern "C"
 {
     // dynamicCode:
-    // SHA1 = 07ffd593991730870ff18e5813d3da8346b17cda
+    // SHA1 = ddcc27c5292f85c75b7249655beeeb20c39d4107
     //
     // unique function name that can be checked if the correct library version
     // has been loaded
-    void sourceTime_07ffd593991730870ff18e5813d3da8346b17cda(bool load)
+    void sourceTime_ddcc27c5292f85c75b7249655beeeb20c39d4107(bool load)
     {
         if (load)
         {
@@ -91,7 +91,7 @@ addRemovableToRunTimeSelectionTable
 
 
 const char* const sourceTimeFvOptionscalarSource::SHA1sum =
-    "07ffd593991730870ff18e5813d3da8346b17cda";
+    "ddcc27c5292f85c75b7249655beeeb20c39d4107";
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
@@ -109,7 +109,7 @@ sourceTimeFvOptionscalarSource
 {
     if (false)
     {
-        Info<<"construct sourceTime sha1: 07ffd593991730870ff18e5813d3da8346b17cda"
+        Info<<"construct sourceTime sha1: ddcc27c5292f85c75b7249655beeeb20c39d4107"
             " from components\n";
     }
 }
@@ -122,7 +122,7 @@ sourceTimeFvOptionscalarSource::
 {
     if (false)
     {
-        Info<<"destroy sourceTime sha1: 07ffd593991730870ff18e5813d3da8346b17cda\n";
+        Info<<"destroy sourceTime sha1: ddcc27c5292f85c75b7249655beeeb20c39d4107\n";
     }
 }
 
@@ -140,7 +140,7 @@ void sourceTimeFvOptionscalarSource::correct
     }
 
 //{{{ begin code
-    #line 56 "/home/shailesh/Niramai/Niramai_cases/with_subprocess_no_tumor/gland/constant/tissue/fvOptions.blood_perfusion_tissue.scalarCodedSourceCoeffs"
+    #line 57 "/home/shailesh/Niramai/Niramai_cases/with_subprocess/gland/constant/tumor/fvOptions.blood_perfusion_tumor.scalarCodedSourceCoeffs"
 Pout<< "**codeCorrect**" << endl;
 //}}} end code
 }
@@ -158,18 +158,25 @@ void sourceTimeFvOptionscalarSource::addSup
     }
 
 //{{{ begin code
-    #line 61 "/home/shailesh/Niramai/Niramai_cases/with_subprocess_no_tumor/gland/constant/tissue/fvOptions.blood_perfusion_tissue.scalarCodedSourceCoeffs"
+    #line 62 "/home/shailesh/Niramai/Niramai_cases/with_subprocess/gland/constant/tumor/fvOptions.blood_perfusion_tumor.scalarCodedSourceCoeffs"
 scalar Tvol = 0;
             //const Time& time = mesh().time();
-            const volScalarField& Tm = mesh_.lookupObject<volScalarField>("T"); 
-            Tvol = Tm.weightedAverage(mesh_.V()).value();                //averageValue of the volScalarField
+	    //volScalarField& T=thermo.Tmodifiable();
+            const volScalarField& Tm = mesh_.lookupObject<volScalarField>("T");
+	    //const volScalarField& Tm = mesh().thermo.T(); 
+	    //volScalarField magnitudeTemp = mag(Tm);
+            Tvol = Tm.weightedAverage(mesh().V()).value();                //averageValue of the volScalarField
+	    //Info << "Tvol"<< endl;
             const vectorField& C = mesh_.C();                    //List of cellcentres
 	    const scalarField& V = mesh_.V();
+	    //const scalar meanT = sum(mag(Tm)*V)/sum(V);
             scalarField& hSource = eqn.source();                //defining source
             forAll(C, i)
             {
-                hSource[i] -= (37 - Tvol)*800*V[i];
+                hSource[i] -= (37 -Tvol)*48000*V[i];
+		
             }
+	    
             Pout << "***codeAddSup***" << endl;
 //}}} end code
 }
@@ -188,18 +195,25 @@ void sourceTimeFvOptionscalarSource::addSup
     }
 
 //{{{ begin code
-    #line 61 "/home/shailesh/Niramai/Niramai_cases/with_subprocess_no_tumor/gland/constant/tissue/fvOptions.blood_perfusion_tissue.scalarCodedSourceCoeffs"
+    #line 62 "/home/shailesh/Niramai/Niramai_cases/with_subprocess/gland/constant/tumor/fvOptions.blood_perfusion_tumor.scalarCodedSourceCoeffs"
 scalar Tvol = 0;
             //const Time& time = mesh().time();
-            const volScalarField& Tm = mesh_.lookupObject<volScalarField>("T"); 
-            Tvol = Tm.weightedAverage(mesh_.V()).value();                //averageValue of the volScalarField
+	    //volScalarField& T=thermo.Tmodifiable();
+            const volScalarField& Tm = mesh_.lookupObject<volScalarField>("T");
+	    //const volScalarField& Tm = mesh().thermo.T(); 
+	    //volScalarField magnitudeTemp = mag(Tm);
+            Tvol = Tm.weightedAverage(mesh().V()).value();                //averageValue of the volScalarField
+	    //Info << "Tvol"<< endl;
             const vectorField& C = mesh_.C();                    //List of cellcentres
 	    const scalarField& V = mesh_.V();
+	    //const scalar meanT = sum(mag(Tm)*V)/sum(V);
             scalarField& hSource = eqn.source();                //defining source
             forAll(C, i)
             {
-                hSource[i] -= (37 - Tvol)*800*V[i];
+                hSource[i] -= (37 -Tvol)*48000*V[i];
+		
             }
+	    
             Pout << "***codeAddSup***" << endl;
 //}}} end code
 }
@@ -217,7 +231,7 @@ void sourceTimeFvOptionscalarSource::constrain
     }
 
 //{{{ begin code
-    #line 77 "/home/shailesh/Niramai/Niramai_cases/with_subprocess_no_tumor/gland/constant/tissue/fvOptions.blood_perfusion_tissue.scalarCodedSourceCoeffs"
+    #line 85 "/home/shailesh/Niramai/Niramai_cases/with_subprocess/gland/constant/tumor/fvOptions.blood_perfusion_tumor.scalarCodedSourceCoeffs"
 Pout<< "**codeSetValue**" << endl;
 //}}} end code
 }

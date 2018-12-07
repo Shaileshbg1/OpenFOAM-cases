@@ -36,7 +36,13 @@ geometry
         radius 0.067;
     }
     
-    muscle_ext
+    tumor_ext
+    {
+        type searchableSphere;
+        centre (0 0.0495 0);
+        radius 0.008;
+    }
+     muscle_ext
     {
         type searchableSphere;
         centre (0 0 0);
@@ -118,6 +124,18 @@ castellatedMeshControls
         }
         
          
+                "tumor_ext.*"
+        {
+            // Surface-wise min and max refinement level
+            level (1 1);
+
+            // Optional specification of patch type (default is wall). No
+            // constraint types (cyclic, symmetry) etc. are allowed.
+            patchInfo
+            {
+                type        wall;
+            }
+        } 
                  "muscle_ext.*"
         {
             // Surface-wise min and max refinement level
@@ -133,7 +151,7 @@ castellatedMeshControls
      }
 
     // Resolve sharp angles 
-    resolveFeatureAngle 60;
+    resolveFeatureAngle 30;
 
 
     // Region-wise refinement
@@ -162,7 +180,7 @@ castellatedMeshControls
     // section reachable from the locationInMesh is kept.
     // NOTE: This point should never be on a face, always inside a cell, even
     // after refinement.
-     locationInMesh (0 0.024 0);
+    locationInMesh (0 0.023 0);
 
 
     // Whether any faceZones (as specified in the refinementSurfaces)
@@ -308,5 +326,4 @@ mergeTolerance 1e-6;
 
 
 // ************************************************************************* //
-
 

@@ -49,19 +49,4 @@ T
     }
 }
 
-p
-{
-    internalField   uniform 1e5;
-
-    boundaryField
-    {
-        ".*"
-        {
-            type            calculated;
-            value           uniform 1e5;
-        }
-
-              
-    }
-}
 // ************************************************************************* //

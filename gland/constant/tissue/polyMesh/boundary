@@ -38,7 +38,7 @@ FoamFile
     {
         type            mappedWall;
         inGroups        1 ( wall );
-        nFaces          41740;
+        nFaces          41738;
         startFace       250900;
         sampleMode      nearestPatchFace;
         sampleRegion    gland;

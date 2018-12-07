@@ -14,7 +14,10 @@ FoamFile
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
+$$ x_cord = x
+$$ y_cord = y
+$$ z_cord = z
+$$ r_val = r
 $$ muscle_radius = mr
 $$ gland_radius = gr
 $$ skin_radius = sr
@@ -46,7 +49,30 @@ actions
         }
     }
 
-
+    // tumor
+    {
+        name    tumorCellSet;
+        type    cellSet;
+        action  new;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   ($x_cord$ $y_cord$ $z_cord$);
+        radius   $r_val$;
+       }
+    }
+   
+    // set tumor cell zone from cell set
+    {
+        name    tumor;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set tumorCellSet;
+        }
+    }
      
       // gland
     {
@@ -74,7 +100,20 @@ actions
        }
     }
 
+    // gland-tumor
 
+     {
+        name    glandCellSet;
+        type    cellSet;
+        action  delete;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   ($x_cord$ $y_cord$ $z_cord$);
+        radius   $r_val$;
+       }
+    }
+    
     // set gland cell zone from cell set
     {
         name    gland;

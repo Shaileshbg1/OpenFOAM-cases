@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-3
+4
 (
 muscle
 {
@@ -209793,6 +209793,12 @@ cellLabels      List<label>
 209767
 )
 ;
+}
+
+tumor
+{
+    type cellZone;
+cellLabels      0();
 }
 
 gland

@@ -38,6 +38,13 @@ boundaryField
         kappaMethod     solidThermo;
         value           uniform 37;
     }
+    gland_to_tumor
+    {
+        type            compressible::turbulentTemperatureCoupledBaffleMixed;
+        Tnbr            T;
+        kappaMethod     solidThermo;
+        value           uniform 37;
+    }
     gland_to_muscle
     {
         type            compressible::turbulentTemperatureCoupledBaffleMixed;
