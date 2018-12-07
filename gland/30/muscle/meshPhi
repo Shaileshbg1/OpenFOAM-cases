@@ -9,42 +9,27 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volScalarField;
-    location    "0/tissue";
-    object      T;
+    class       surfaceScalarField;
+    location    "30/muscle";
+    object      meshPhi;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [ 0 0 0 1 0 0 0 ];
+dimensions      [0 3 -1 0 0 0 0];
 
-internalField   uniform 37;
+internalField   uniform 0;
 
 boundaryField
 {
-    ".*"
+    thoraic_wall_muscle
     {
         type            calculated;
-        value           uniform 37;
+        value           uniform 0;
     }
-    adiabatic_wall
+    muscle_to_gland
     {
-        type            zeroGradient;
-    }
-    skin
-    {
-        type            externalWallHeatFluxTemperature;
-        mode            coefficient;
-        Ta              constant 22;
-        h               uniform 13.5;
-        kappaMethod     solidThermo;
-        value           uniform 37;
-    }
-    tissue_to_gland
-    {
-        type            compressible::turbulentTemperatureCoupledBaffleMixed;
-        Tnbr            T;
-        kappaMethod     solidThermo;
-        value           uniform 37;
+        type            calculated;
+        value           uniform 0;
     }
 }
 
