@@ -16,10 +16,6 @@ FoamFile
 
 $$ gland_radius = gr
 $$ muscle_radius = mr
-$$ x_cord = x
-$$ y_cord = y
-$$ z_cord = z
-$$ r_val = r
 
 // Which of the steps to run
 castellatedMesh true;
@@ -42,13 +38,7 @@ geometry
         radius $gland_radius$;
     }
     
-    tumor_ext
-    {
-        type searchableSphere;
-        centre ($x_cord$ $y_cord$ $z_cord$);
-        radius $r_val$;
-    }
-     muscle_ext
+    muscle_ext
     {
         type searchableSphere;
         centre (0 0 0);
@@ -97,9 +87,9 @@ castellatedMeshControls
     // This is a featureEdgeMesh, read from constant/triSurface for now.
     features
     (
-       {
-           file "gland.eMesh";
-           levels ((0.1 1));
+        {
+            file "gland.eMesh";
+            levels ((0.1 1));
         }
     );
 
@@ -130,18 +120,6 @@ castellatedMeshControls
         }
         
          
-                "tumor_ext.*"
-        {
-            // Surface-wise min and max refinement level
-            level (1 1);
-
-            // Optional specification of patch type (default is wall). No
-            // constraint types (cyclic, symmetry) etc. are allowed.
-            patchInfo
-            {
-                type        wall;
-            }
-        } 
                  "muscle_ext.*"
         {
             // Surface-wise min and max refinement level

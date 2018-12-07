@@ -13,8 +13,7 @@ FoamFile
     location    "constant";
     object      fvOptions;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
- 
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * // 
 metabolic_heat_generation_tissue
 {
     type            scalarSemiImplicitSource;
@@ -43,7 +42,7 @@ blood_perfusion_tissue
     {
         
         selectionMode   all;
-        //cellZone        tissue;
+        //cellZone        all;
 	fields      (h);
 
         codeInclude
@@ -58,16 +57,16 @@ blood_perfusion_tissue
 
         codeAddSup
         #{
-	     //scalar Tvol = 0;
+	     scalar Tvol = 0;
             //const Time& time = mesh().time();
-            const volScalarField& T = mesh_.lookupObject<volScalarField>("T"); 
-            //Tvol = Tm.weightedAverage(mesh_.V()).value();                //averageValue of the volScalarField
-            //const vectorField& C = mesh_.C();                    //List of cellcentres
+            const volScalarField& Tm = mesh_.lookupObject<volScalarField>("T"); 
+            Tvol = Tm.weightedAverage(mesh_.V()).value();                //averageValue of the volScalarField
+            const vectorField& C = mesh_.C();                    //List of cellcentres
 	    const scalarField& V = mesh_.V();
             scalarField& hSource = eqn.source();                //defining source
-            forAll(T, i)
+            forAll(C, i)
             {
-                hSource[i] -= (T[i] - 37)*800*V[i];  
+                hSource[i] += (Tvol - 37)*800*V[i];
             }
             Pout << "***codeAddSup***" << endl;
         #};

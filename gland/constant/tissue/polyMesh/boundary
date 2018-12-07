@@ -30,7 +30,7 @@ FoamFile
     {
         type            patch;
         inGroups        1 ( wall );
-        nFaces          17308;
+        nFaces          16932;
         startFace       233968;
     }
 
@@ -38,8 +38,8 @@ FoamFile
     {
         type            mappedWall;
         inGroups        1 ( wall );
-        nFaces          41278;
-        startFace       251276;
+        nFaces          41740;
+        startFace       250900;
         sampleMode      nearestPatchFace;
         sampleRegion    gland;
         samplePatch     gland_to_tissue;

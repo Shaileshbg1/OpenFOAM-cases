@@ -34,8 +34,8 @@ edgeCoPlanarTol 0.8;
 
 tolerances
 	{
-//pointMergeTol            0.05;
-pointMergeTol            0.1;
+pointMergeTol            0.2;
+//pointMergeTol            0.1;
 edgeMergeTol             0.01;
 nFacesPerSlaveEdge       5   ;
 edgeFaceEscapeLimit      10  ;

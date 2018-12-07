@@ -3,19 +3,12 @@
 . $WM_PROJECT_DIR/bin/tools/CleanFunctions
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
-runApplication pyFoamFromTemplate.py system/blockMeshDict "{'sr':0.072}"
-rm log.pyFoamFromTemplate.py
 runApplication blockMesh                          # base mesh for tissue region
-runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'gr':0.067, 'sr':0.072}"
-rm log.pyFoamFromTemplate.py
 runApplication snappyHexMesh -overwrite               # snappy hex mesh to chisel into curved shape
 
 
 # CHECK MESH 
 runApplication checkMesh -constant -allGeometry -allTopology
-
-# Case report
-runApplication pyFoamCaseReport.py --full-report .
 
 cd constant/
 mv polyMesh tissue/polyMesh

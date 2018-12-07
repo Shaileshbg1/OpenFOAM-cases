@@ -26,11 +26,7 @@ boundaryField
         value           uniform 1e5;
     }
 
-    frontAndBack
-    {
-        type            empty;
-    }
-
+    
 }
 
 // ************************************************************************* //

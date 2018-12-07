@@ -23,13 +23,13 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         40;
+endTime         1000;
 
 deltaT          1;
 
-writeControl    runTime;
+writeControl    timeStep;
 
-writeInterval   10;
+writeInterval   100;
 
 purgeWrite      10;
 
@@ -44,9 +44,20 @@ timeFormat      general;
 timePrecision   6;
 
 runTimeModifiable true;
-
+/*
 functions
- {
-   #includeFunc surfaces
- }
+{
+  fieldMinMax1
+    {
+        type        writeCellCentres;
+        libs        ("libfieldFunctionObjects.so");
+        
+        writeToFile yes;
+        log         yes;
+        location    yes;
+        mode        magnitude;
+        fields      (T);
+    }
+}
+*/
 // ************************************************************************* //

@@ -46,13 +46,13 @@ T
             value           uniform 37;
         }
        
-        gland_to_tumor
+      /*  gland_to_tumor
         {
             type            compressible::turbulentTemperatureCoupledBaffleMixed;
             Tnbr            T;
             kappaMethod     solidThermo;
             value           uniform 37;
-        }
+        }*/
 
          gland_to_muscle
         {
@@ -62,6 +62,22 @@ T
             value           uniform 37;
         }
        
+    }
+}
+
+p
+{
+    internalField   uniform 1e5;
+
+    boundaryField
+    {
+        ".*"
+        {
+            type            calculated;
+            value           uniform 1e5;
+        }
+
+              
     }
 }
 

@@ -15,15 +15,9 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-4
+3
 (
 muscle
-{
-    type cellZone;
-cellLabels      0();
-}
-
-tumor
 {
     type cellZone;
 cellLabels      0();

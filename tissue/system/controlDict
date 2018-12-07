@@ -44,104 +44,20 @@ timeFormat      general;
 timePrecision   6;
 
 runTimeModifiable true;
-
+/*
 functions
 {
-    
-  //  #includeFunc probes
-   // #includeFunc singleGraph
-   #includeFunc surfaces
-  //  #includeFunc sample
- /*
-   minMaxT
-   {
-     type    fieldMinMax;
-     region  tissue;
-     functionObjectLibs ("libfieldFunctionObjects.so");
-     fields
-      (
-        T
-      );
-     mode  magnitude;
-     outputControl  timeStep;
-     outputInterval 1;
-   }
- 
-    surfaceSampling
+  fieldMinMax1
     {
-        // Sample near-wall velocity
-
-        type surfaces;
-        region tissue;
-
-        // Where to load it from (if not already in solver)
-        libs            ("libsampling.so");
-        writeControl    writeTime;
-
-        interpolationScheme cellPoint;
-
-        surfaceFormat vtk;
-
-        // Fields to be sampled
-        fields
-        (
-            T
-        );
-
-        surfaces
-        (
-            nearWall
-            {
-                type            patchInternalField;
-                patches         ( skin );
-                distance        1E-6;
-                interpolate     true;
-                triangulate     false;
-            }
-        );
+        type        writeCellCentres;
+        libs        ("libfieldFunctionObjects.so");
+        
+        writeToFile yes;
+        log         yes;
+        location    yes;
+        mode        magnitude;
+        fields      (T);
     }
-*/
-
-  /*   faceObj1
-    {
-        type            faceSource;
-        functionObjectLibs ("libfieldFunctionObjects.so");
-
-        enabled         true;
-        outputControl   outputTime;
-
-        // Output to log&file (true) or to file only
-        log             true;
-
-        // Output field values as well
-        valueOutput     true;
-
-        // Type of source: patch/faceZone/sampledSurface
-        source          patch;
-
-//         // if patch or faceZone: name of patch or faceZone
-         sourceName      skin;
-
-        //// if sampledSurface: dictionary with a sampledSurface
-        //// Note: will not sample surface fields.
-        //sampledSurfaceDict
-        //{
-           // Sampling on triSurface
-           //type        sampledTriSurfaceMesh;
-           //surface     Scale_1.stl;
-           //source      cells;  // sample cells or boundaryFaces
-           //interpolate false;
-        //}
-
-        // Operation: areaAverage/sum/weightedAverage ...
-        operation       areaNormalIntegrate;
-
-        fields
-        (
-            T
-            
-        );
-    }
-*/
 }
+*/
 // ************************************************************************* //

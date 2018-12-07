@@ -14,19 +14,19 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-$$ gland_radius = gr
+$$ muscle_radius = mr
 convertToMeters 1;
 
 vertices
 (
-    (-$gland_radius$ 0  -$gland_radius$)
-    ( $gland_radius$ 0  -$gland_radius$)
-    ( $gland_radius$  $gland_radius$  -$gland_radius$)
-    (-$gland_radius$  $gland_radius$  -$gland_radius$)
-    (-$gland_radius$ 0   $gland_radius$)
-    ( $gland_radius$ 0   $gland_radius$)
-    ( $gland_radius$  $gland_radius$   $gland_radius$)
-    (-$gland_radius$  $gland_radius$   $gland_radius$)
+    (-$muscle_radius$ 0  -$muscle_radius$)
+    ( $muscle_radius$ 0  -$muscle_radius$)
+    ( $muscle_radius$  $muscle_radius$  -$muscle_radius$)
+    (-$muscle_radius$  $muscle_radius$  -$muscle_radius$)
+    (-$muscle_radius$ 0   $muscle_radius$)
+    ( $muscle_radius$ 0   $muscle_radius$)
+    ( $muscle_radius$  $muscle_radius$   $muscle_radius$)
+    (-$muscle_radius$  $muscle_radius$   $muscle_radius$)
 );
 
 blocks
@@ -82,7 +82,7 @@ boundary
             (2 6 5 1)
         );
     }
-    thoraic_wall_gland
+    thoraic_wall_muscle
     {
         type wall;
         faces

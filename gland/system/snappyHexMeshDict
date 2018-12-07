@@ -36,13 +36,7 @@ geometry
         radius 0.067;
     }
     
-    tumor_ext
-    {
-        type searchableSphere;
-        centre (0.01 0.04 0.01);
-        radius 0.01;
-    }
-     muscle_ext
+    muscle_ext
     {
         type searchableSphere;
         centre (0 0 0);
@@ -91,9 +85,9 @@ castellatedMeshControls
     // This is a featureEdgeMesh, read from constant/triSurface for now.
     features
     (
-       {
-           file "gland.eMesh";
-           levels ((0.1 1));
+        {
+            file "gland.eMesh";
+            levels ((0.1 1));
         }
     );
 
@@ -124,18 +118,6 @@ castellatedMeshControls
         }
         
          
-                "tumor_ext.*"
-        {
-            // Surface-wise min and max refinement level
-            level (1 1);
-
-            // Optional specification of patch type (default is wall). No
-            // constraint types (cyclic, symmetry) etc. are allowed.
-            patchInfo
-            {
-                type        wall;
-            }
-        } 
                  "muscle_ext.*"
         {
             // Surface-wise min and max refinement level

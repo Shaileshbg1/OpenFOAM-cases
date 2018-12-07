@@ -21,15 +21,15 @@ FoamFile
     {
         type            wall;
         inGroups        1(wall);
-        nFaces          2220;
-        startFace       131492;
+        nFaces          6144;
+        startFace       614964;
     }
     muscle_int
     {
         type            wall;
         inGroups        1(wall);
-        nFaces          3888;
-        startFace       133712;
+        nFaces          10968;
+        startFace       621108;
     }
 )
 

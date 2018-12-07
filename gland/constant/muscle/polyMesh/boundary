@@ -22,16 +22,16 @@ FoamFile
     {
         type            patch;
         inGroups        1 ( wall );
-        nFaces          2220;
-        startFace       131492;
+        nFaces          6144;
+        startFace       614964;
     }
 
     muscle_to_gland
     {
         type            mappedWall;
         inGroups        1 ( wall );
-        nFaces          8226;
-        startFace       133712;
+        nFaces          16432;
+        startFace       621108;
         sampleMode      nearestPatchFace;
         sampleRegion    gland;
         samplePatch     gland_to_muscle;

@@ -28,15 +28,15 @@ FoamFile
     {
         type            wall;
         inGroups        1(wall);
-        nFaces          17308;
+        nFaces          16932;
         startFace       233968;
     }
     gland_int
     {
         type            wall;
         inGroups        1(wall);
-        nFaces          14480;
-        startFace       251276;
+        nFaces          14464;
+        startFace       250900;
     }
 )
 

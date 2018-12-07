@@ -84,31 +84,24 @@ Description
             // Dummy entry. Make dependent on above to trigger recompilation
             code
             #{
-                #line 52 "/home/shailesh/Niramai/Niramai_cases/with_subprocess/gland/constant/tumor/fvOptions.blood_perfusion_tumor.scalarCodedSourceCoeffs"
+                #line 51 "/home/shailesh/Niramai/Niramai_cases/with_subprocess_no_tumor/gland/constant/tissue/fvOptions.blood_perfusion_tissue.scalarCodedSourceCoeffs"
 
-                #line 57 "/home/shailesh/Niramai/Niramai_cases/with_subprocess/gland/constant/tumor/fvOptions.blood_perfusion_tumor.scalarCodedSourceCoeffs"
+                #line 56 "/home/shailesh/Niramai/Niramai_cases/with_subprocess_no_tumor/gland/constant/tissue/fvOptions.blood_perfusion_tissue.scalarCodedSourceCoeffs"
 Pout<< "**codeCorrect**" << endl;
-                #line 62 "/home/shailesh/Niramai/Niramai_cases/with_subprocess/gland/constant/tumor/fvOptions.blood_perfusion_tumor.scalarCodedSourceCoeffs"
-//scalar Tvol = 0;
+                #line 61 "/home/shailesh/Niramai/Niramai_cases/with_subprocess_no_tumor/gland/constant/tissue/fvOptions.blood_perfusion_tissue.scalarCodedSourceCoeffs"
+scalar Tvol = 0;
             //const Time& time = mesh().time();
-	    //volScalarField& T=thermo.Tmodifiable();
-            const volScalarField& T = mesh_.lookupObject<volScalarField>("T");
-	    //const volScalarField& Tm = mesh().thermo.T(); 
-	    //volScalarField magnitudeTemp = mag(Tm);
-            //Tvol = Tm.weightedAverage(mesh().V()).value();                //averageValue of the volScalarField
-	    //Info << "Tvol"<< endl;
-            //const vectorField& C = mesh_.C();                    //List of cellcentres
+            const volScalarField& Tm = mesh_.lookupObject<volScalarField>("T"); 
+            Tvol = Tm.weightedAverage(mesh_.V()).value();                //averageValue of the volScalarField
+            const vectorField& C = mesh_.C();                    //List of cellcentres
 	    const scalarField& V = mesh_.V();
-	    //const scalar meanT = sum(mag(Tm)*V)/sum(V);
             scalarField& hSource = eqn.source();                //defining source
-            forAll(T, i)
+            forAll(C, i)
             {
-                hSource[i] -= (37 - T[i])*48000*V[i];
-		
+                hSource[i] -= (37 - Tvol)*800*V[i];
             }
-	    
             Pout << "***codeAddSup***" << endl;
-                #line 85 "/home/shailesh/Niramai/Niramai_cases/with_subprocess/gland/constant/tumor/fvOptions.blood_perfusion_tumor.scalarCodedSourceCoeffs"
+                #line 77 "/home/shailesh/Niramai/Niramai_cases/with_subprocess_no_tumor/gland/constant/tissue/fvOptions.blood_perfusion_tissue.scalarCodedSourceCoeffs"
 Pout<< "**codeSetValue**" << endl;
             #};
         }
