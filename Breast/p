@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  5                                     |
+|  \\    /   O peration     | Version:  2.1.x                                 |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -9,26 +9,28 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    object      surfaceFeatureExtractDict;
+    class       volScalarField;
+    object      p;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-muscle.stl
-{
-    extractionMethod    extractFromSurface;
+dimensions      [1 -1 -2 0 0 0 0];
 
-    extractFromSurfaceCoeffs
+internalField   uniform 1e5;
+
+boundaryField
+{
+    ".*"
     {
-        // Mark edges whose adjacent surface normals are at an angle less
-        // than includedAngle as features
-        // - 0  : selects no edges
-        // - 180: selects all edges
-        includedAngle   150;
+        type            calculated;
+        value           uniform 1e5;
     }
 
-    // Write options
-    writeFeatureEdgeMesh    yes;
+    frontAndBack
+    {
+        type            empty;
+    }
+
 }
 
 // ************************************************************************* //

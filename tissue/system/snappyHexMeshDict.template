@@ -88,7 +88,7 @@ castellatedMeshControls
     (
         {
             file "tissue.eMesh";
-            levels ((0.1 1));
+            level 3;
         }
     );
 
@@ -108,7 +108,7 @@ castellatedMeshControls
                 "skin.*"
         {
             // Surface-wise min and max refinement level
-            level (1 1);
+            level (1 3);
 
             // Optional specification of patch type (default is wall). No
             // constraint types (cyclic, symmetry) etc. are allowed.
@@ -121,7 +121,7 @@ castellatedMeshControls
                   "gland_int.*"
         {
             // Surface-wise min and max refinement level
-            level (1 1);
+            level (1 3);
 
             // Optional specification of patch type (default is wall). No
             // constraint types (cyclic, symmetry) etc. are allowed.

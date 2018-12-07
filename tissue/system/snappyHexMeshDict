@@ -14,11 +14,11 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-
 // Which of the steps to run
 castellatedMesh true;
 snap            true;
 addLayers       false;
+
 
 
 // Geometry. Definition of all surfaces. All surfaces are of class
@@ -86,7 +86,7 @@ castellatedMeshControls
     (
         {
             file "tissue.eMesh";
-            levels ((0.1 1));
+            level 3;
         }
     );
 
@@ -106,7 +106,7 @@ castellatedMeshControls
                 "skin.*"
         {
             // Surface-wise min and max refinement level
-            level (1 1);
+            level (1 3);
 
             // Optional specification of patch type (default is wall). No
             // constraint types (cyclic, symmetry) etc. are allowed.
@@ -119,7 +119,7 @@ castellatedMeshControls
                   "gland_int.*"
         {
             // Surface-wise min and max refinement level
-            level (1 1);
+            level (1 3);
 
             // Optional specification of patch type (default is wall). No
             // constraint types (cyclic, symmetry) etc. are allowed.
@@ -150,6 +150,7 @@ castellatedMeshControls
 
     refinementRegions
     {
+       
     }
 
 
@@ -167,7 +168,7 @@ castellatedMeshControls
     // Whether any faceZones (as specified in the refinementSurfaces)
     // are only on the boundary of corresponding cellZones or also allow
     // free-standing zone faces. Not used if there are no faceZones.
-    allowFreeStandingZoneFaces false;
+    allowFreeStandingZoneFaces true;
 }
 
 
@@ -182,10 +183,10 @@ snapControls
     //- Relative distance for points to be attracted by surface feature point
     //  or edge. True distance is this factor times local
     //  maximum edge length.
-    tolerance 2.0;
+    tolerance 4.0;
 
     //- Number of mesh displacement relaxation iterations.
-    nSolveIter 30;
+    nSolveIter 300;
 
     //- Maximum number of snapping relaxation iterations. Should stop
     //  before upon reaching a correct mesh.
@@ -207,6 +208,7 @@ snapControls
 
 
 
+
 // Settings for the layer addition.
 addLayersControls
 {
@@ -217,10 +219,7 @@ addLayersControls
     // Per final patch (so not geometry!) the layer information
     layers
     {
-      gland_int
-        {
-            nSurfaceLayers 1;
-        }               
+                    
     }
 
     // Expansion factor for layer mesh
@@ -285,29 +284,79 @@ addLayersControls
     nLayerIter 50;
 }
 
-
-
 // Generic mesh quality settings. At any undoable phase these determine
 // where to undo.
 meshQualityControls
 {
-    #include "meshQualityDict"
+    //- Maximum non-orthogonality allowed. Set to 180 to disable.
+    maxNonOrtho 65;
+
+    //- Max skewness allowed. Set to <0 to disable.
+    maxBoundarySkewness 20;
+    maxInternalSkewness 4; //-1;	//4
+
+    //- Max concaveness allowed. Is angle (in degrees) below which concavity
+    //  is allowed. 0 is straight face, <0 would be convex face.
+    //  Set to 180 to disable.
+    maxConcave 180;
+
+    //- Minimum pyramid volume. Is absolute volume of cell pyramid.
+    //  Set to a sensible fraction of the smallest cell volume expected.
+    //  Set to very negative number (e.g. -1E30) to disable.
+    minVol 1e-13;
+
+    //- Minimum quality of the tet formed by the face-centre
+    //  and variable base point minimum decomposition triangles and
+    //  the cell centre. This has to be a positive number for tracking
+    //  to work. Set to very negative number (e.g. -1E30) to
+    //  disable.
+    //     <0 = inside out tet,
+    //      0 = flat tet
+    //      1 = regular tet
+    minTetQuality -1e30;
+
+    //- Minimum face area. Set to <0 to disable.
+    minArea -1;
+
+    //- Minimum face twist. Set to <-1 to disable. dot product of face normal
+    //- and face centre triangles normal
+    minTwist 0.02;
+
+    //- minimum normalised cell determinant
+    //- 1 = hex, <= 0 = folded or flattened illegal cell
+    minDeterminant 0.001;
+
+    //- minFaceWeight (0 -> 0.5)
+    minFaceWeight 0.02;
+
+    //- minVolRatio (0 -> 1)
+    minVolRatio 0.01;
+
+    //must be >0 for Fluent compatibility
+    minTriangleTwist -1;
+
 
     // Advanced
 
     //- Number of error distribution iterations
     nSmoothScale 4;
-    //- Amount to scale back displacement at error points
+    //- amount to scale back displacement at error points
     errorReduction 0.75;
 }
 
 
 // Advanced
 
+// Flags for optional output
+// 0 : only write final meshes
+// 1 : write intermediate meshes
+// 2 : write volScalarField with cellLevel for postprocessing
+// 4 : write current intersections as .obj files
+debug 0;
+
+
 // Merge tolerance. Is fraction of overall bounding box of initial mesh.
 // Note: the write tolerance needs to be higher than this.
-mergeTolerance 1e-6;
-
+mergeTolerance 1E-6;
 
 // ************************************************************************* //
-

@@ -10,40 +10,51 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      toleranceDict;
+    object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-     
-//- Point merge tolerance
-pointMergeTol 0.3;
 
-//- Edge merge tolerance
-edgeMergeTol 0.05;
+ddtSchemes
+{
+    default steadyState;
+}
 
-//- Integral match point adjustment tolerance
-integralAdjTol 0.15;
+gradSchemes
+{
+    default         Gauss linear;
+    grad(U)         cellLimited Gauss linear 1; 
+    // grad(k)         cellLimited Gauss linear 1; 
+    // grad(epsilon)         cellLimited Gauss linear 1; 
+}
 
-//- Edge intersection master catch fraction
-edgeMasterCatchFraction 0.4;
+divSchemes
+{
+    default         none;
+    div(phi,U)      Gauss linearUpwindV grad(U);
+    div(phi,k)      Gauss upwind ;
+    div(phi,epsilon)  Gauss upwind ;
+    div((nuEff*dev(T(grad(U))))) Gauss linear;
+}
 
-//- Edge end cut-off tolerance
-edgeEndCutoffTol 0.0001;
+laplacianSchemes
+{
+    default         Gauss linear limited 0.333;
+}
 
-//- Edge intersection co-planar tolerance
-edgeCoPlanarTol 0.8;
+interpolationSchemes
+{
+    default         linear;
+}
 
-tolerances
-	{
-//pointMergeTol            0.05;
-pointMergeTol            0.1;
-edgeMergeTol             0.01;
-nFacesPerSlaveEdge       5   ;
-edgeFaceEscapeLimit      10  ;
-integralAdjTol           0.05;
-edgeMasterCatchFraction  0.4 ;
-edgeCoPlanarTol          0.8 ;
-edgeEndCutoffTol         0.0001;
-	}
+snGradSchemes
+{
+    default         limited 0.333;
+}
 
+fluxRequired
+{
+    default         no;
+    p;
+}
 
 // ************************************************************************* //

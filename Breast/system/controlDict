@@ -10,25 +10,54 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      surfaceFeatureExtractDict;
+    location    "system";
+    object      controlDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-muscle.stl
+application     chtMultiRegionSimpleFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         40;
+
+deltaT          1;
+
+writeControl    timeStep;
+
+writeInterval   10;
+
+purgeWrite      10;
+
+writeFormat     ascii;
+
+writePrecision  7;
+
+writeCompression uncompressed;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+/*
+functions
 {
-    extractionMethod    extractFromSurface;
-
-    extractFromSurfaceCoeffs
+  fieldMinMax1
     {
-        // Mark edges whose adjacent surface normals are at an angle less
-        // than includedAngle as features
-        // - 0  : selects no edges
-        // - 180: selects all edges
-        includedAngle   150;
+        type        writeCellCentres;
+        libs        ("libfieldFunctionObjects.so");
+        
+        writeToFile yes;
+        log         yes;
+        location    yes;
+        mode        magnitude;
+        fields      (T);
     }
-
-    // Write options
-    writeFeatureEdgeMesh    yes;
 }
-
+*/
 // ************************************************************************* //

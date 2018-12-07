@@ -9,61 +9,54 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    location    "system";
-    object      fvSolution;
+    class       volScalarField;
+    object      T;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-solvers
+dimensions      [0 0 0 1 0 0 0];
+
+internalField   uniform 30;
+
+boundaryField
 {
-    p_rgh
+    //- Set patchGroups for constraint patches
+ //   #includeEtc "caseDicts/setConstraintTypes"
+
+     thoraic_wall_muscle
     {
-        solver          PCG;
-        preconditioner  DIC;
-        tolerance       1e-08;
-        relTol          0.01;
+        type            fixedValue;
+        value           uniform 37;
+    }
+  
+     thoraic_wall_gland
+    {
+        type            fixedValue;
+        value           uniform 37;
     }
 
-    "(U|T|k|epsilon)"
+     adiabatic_wall
     {
-        solver          PBiCGStab;
-        preconditioner  DILU;
-        tolerance       1e-07;
-        relTol          0.1;
+        type            zeroGradient;
     }
+
+     skin
+    {
+        type            externalWallHeatFluxTemperature;
+
+        mode            coefficient;
+
+        Ta              constant 22;
+        h               uniform 13.5;
+       // thicknessLayers (0.1 0.2 0.3 0.4);
+       // kappaLayers     (1 2 3 4);
+
+        kappaMethod     solidThermo;
+
+        value           uniform 27;
+    }
+
+    
 }
-
-SIMPLE
-{
-    nNonOrthogonalCorrectors 2;
-    pRefCell        0;
-    pRefValue       0;
-
-    residualControl
-    {
-        p_rgh           1e-2;
-        U               1e-4;
-        T               1e-3;
-
-        // possibly check turbulence fields
-        "(k|epsilon|omega)" 1e-3;
-    }
-}
-
-relaxationFactors
-{
-    fields
-    {
-        p_rgh           0.7;
-    }
-    equations
-    {
-        U               0.2;
-        T               0.5;
-        "(k|epsilon)"   0.7;
-    }
-}
-
 
 // ************************************************************************* //

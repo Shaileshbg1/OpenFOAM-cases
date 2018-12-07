@@ -1,0 +1,164 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+    // muscle
+    {
+        name    muscleCellSet;
+        type    cellSet;
+        action  new;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   (0 0 0);
+        radius   0.022;
+       }
+    }
+   
+    // set muscle cell zone from cell set
+    {
+        name    muscle;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set muscleCellSet;
+        }
+    }
+
+    // tumor
+    {
+        name    tumorCellSet;
+        type    cellSet;
+        action  new;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   (0.02 0.049 0.005);
+        radius   0.01;
+       }
+    }
+   
+    // set tumor cell zone from cell set
+    {
+        name    tumor;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set tumorCellSet;
+        }
+    }
+     
+      // gland
+    {
+        name    glandCellSet;
+        type    cellSet;
+        action  new;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   (0 0 0);
+        radius   0.067;
+       }
+    }
+
+     // gland-muscle
+     {
+        name    glandCellSet;
+        type    cellSet;
+        action  delete;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   (0 0 0);
+        radius   0.022;
+       }
+    }
+
+    // gland-tumor
+
+     {
+        name    glandCellSet;
+        type    cellSet;
+        action  delete;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   (0.02 0.049 0.005);
+        radius   0.01;
+       }
+    }
+    
+    // set gland cell zone from cell set
+    {
+        name    gland;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set glandCellSet;
+        }
+    }
+
+     // tissue
+    {
+        name    tissueCellSet;
+        type    cellSet;
+        action  new;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   (0 0 0);
+        radius   0.082;
+       }
+    }
+
+     // tissue-gland
+     {
+        name    tissueCellSet;
+        type    cellSet;
+        action  delete;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   (0 0 0);
+        radius   0.067;
+       }
+    }
+   
+  // set tissue cell zone from cell set
+    {
+        name    tissue;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set tissueCellSet;
+        }
+    }
+    
+);
+
+
+// ************************************************************************* //
+

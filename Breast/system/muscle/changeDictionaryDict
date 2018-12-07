@@ -10,25 +10,37 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      surfaceFeatureExtractDict;
+    object      changeDictionaryDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-muscle.stl
+boundary
 {
-    extractionMethod    extractFromSurface;
+        
+}
 
-    extractFromSurfaceCoeffs
+T
+{
+    internalField   uniform 30;
+
+    boundaryField
     {
-        // Mark edges whose adjacent surface normals are at an angle less
-        // than includedAngle as features
-        // - 0  : selects no edges
-        // - 180: selects all edges
-        includedAngle   150;
-    }
+       
+       "muscle_to_.*"
+        {
+            type            compressible::turbulentTemperatureCoupledBaffleMixed;
+            Tnbr            T;
+            kappaMethod     solidThermo;
+            value           uniform 27;
+        }
 
-    // Write options
-    writeFeatureEdgeMesh    yes;
+	thoraic_wall_muscle
+    	 {
+           type            fixedValue;
+           value           uniform 37;
+    	 }
+       
+    }
 }
 
 // ************************************************************************* //

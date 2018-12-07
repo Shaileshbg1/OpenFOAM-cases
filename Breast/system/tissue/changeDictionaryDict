@@ -10,25 +10,55 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      surfaceFeatureExtractDict;
+    object      changeDictionaryDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-muscle.stl
+boundary
 {
-    extractionMethod    extractFromSurface;
+       
+}
 
-    extractFromSurfaceCoeffs
+T
+{
+    internalField   uniform 30;
+
+    boundaryField
     {
-        // Mark edges whose adjacent surface normals are at an angle less
-        // than includedAngle as features
-        // - 0  : selects no edges
-        // - 180: selects all edges
-        includedAngle   150;
+       
+        "tissue_to_.*"
+        {
+            type            compressible::turbulentTemperatureCoupledBaffleMixed;
+            Tnbr            T;
+            kappaMethod     solidThermo;
+            value           uniform 27;
+        }
+	
+    
+     adiabatic_wall
+    {
+        type            zeroGradient;
     }
 
-    // Write options
-    writeFeatureEdgeMesh    yes;
+     skin
+    {
+        type            externalWallHeatFluxTemperature;
+
+        mode            coefficient;
+
+        Ta              constant 22;
+        h               uniform 13.5;
+       // thicknessLayers (0.1 0.2 0.3 0.4);
+       // kappaLayers     (1 2 3 4);
+
+        kappaMethod     solidThermo;
+
+        value           uniform 27;
+    }
+
+    
+       
+    }
 }
 
 // ************************************************************************* //

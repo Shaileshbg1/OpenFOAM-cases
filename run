@@ -6,49 +6,32 @@
 # Muscle meshing
 cd muscle/                                                      # move to muscle folder
 cleanCase
-runApplication pyFoamFromTemplate.py system/blockMeshDict "{'mr':0.022}"
-rm log.pyFoamFromTemplate.py
 runApplication blockMesh                          # base mesh for muscle region
-runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'mr':0.022}"
-rm log.pyFoamFromTemplate.py
 runApplication snappyHexMesh -overwrite               # snappy hex mesh to chisel into curved shape
-: '
+
 # TUMOR MESHING 
 cd ../tumor/                                                    # move to tumor folder
 cleanCase
-runApplication pyFoamFromTemplate.py system/blockMeshDict "{'te':0.06}"
-rm log.pyFoamFromTemplate.py
 runApplication blockMesh                          # base mesh for tumor region
-runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'x':0, 'y':0.0495, 'z':0, 'r':0.008}"
-rm log.pyFoamFromTemplate.py
+runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'x':0.02, 'y':0.049, 'z':0.005, 'r':0.01}"
 runApplication snappyHexMesh -overwrite               # snappy hex mesh to chisel into curved shape
-'
 
 # TISSUE MESHING 
 cd ../tissue/                                                   # move to tissue folder
 cleanCase
-runApplication pyFoamFromTemplate.py system/blockMeshDict "{'sr':0.072}"
-rm log.pyFoamFromTemplate.py
 runApplication blockMesh                          # base mesh for tissue region
-runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'gr':0.067, 'sr':0.072}"
-rm log.pyFoamFromTemplate.py
 runApplication snappyHexMesh -overwrite               # snappy hex mesh to chisel into curved shape
 
 # GLAND MESHING 
 cd ../gland/                                                    # move to gland folder
 cleanCase
-runApplication pyFoamFromTemplate.py system/blockMeshDict "{'gr':0.067}"
-rm log.pyFoamFromTemplate.py
 runApplication blockMesh                          # base mesh for gland region
-runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'mr':0.022, 'gr':0.067}"
-rm log.pyFoamFromTemplate.py
+runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'x':0.02, 'y':0.049, 'z':0.005, 'r':0.01}"
 runApplication snappyHexMesh -overwrite # snappy hex mesh to chisel into curved shape
 
 # MERGE AND STITCH MUSCLE MESH ONTO GLAND              
 runApplication mergeMeshes -overwrite . ../muscle/              # Merge muscle mesh onto the gland mesh and place it in Breast folder
 runApplication stitchMesh -partial -toleranceDict toleranceDict -overwrite muscle_ext muscle_int  # partial stitch muscle patches per tolerance
-
-
 cd 0
 rm  meshPhi                           # remove meshPhi
 cd ..                     
@@ -58,13 +41,11 @@ rm *Zones                            # remove all current zone files
 rm meshModifiers                     # remove mesh modifiers
 
 cd ../../                            # back to gland folder
-
 # MERGE AND STITCH TISSUE MESH ONTO GLAND              
 runApplication mergeMeshes -overwrite . ../tissue/              # Merge tissue mesh onto the gland mesh
 runApplication stitchMesh -partial -toleranceDict toleranceDict -overwrite gland_ext gland_int   # partial stitch gland patches per tolerance
-
 cd 0
-rm meshPhi                           # remove meshPhi
+rm  meshPhi                           # remove meshPhi
 cd ..
 rm log.*                             # remove current merge and stitch logs
 cd constant/polyMesh/                # move to constant polymesh to remove current zones
@@ -72,37 +53,31 @@ rm *Zones                            # remove all current zone files
 rm meshModifiers                     # remove mesh modifiers
 
 cd ../../                            # back to gland folder
-: '
 # MERGE AND STITCH TUMOR MESH ONTO GLAND              
 runApplication mergeMeshes -overwrite . ../tumor/              # Merge tumor mesh onto the gland mesh
 runApplication stitchMesh -partial -toleranceDict toleranceDict -overwrite tumor_ext tumor_int  # partial stitch tumor patches as per tolerance
-'
+
 # CHECK MESH AFTER STITCHING
 runApplication checkMesh #-constant -allGeometry -allTopology
 
 # TOPOSET TO DEFINE DIFFERENT CELL ZONES
-runApplication pyFoamFromTemplate.py system/topoSetDict  "{'mr':0.022, 'gr':0.067, 'sr':0.072}"
-rm log.pyFoamFromTemplate.py
+runApplication pyFoamFromTemplate.py system/topoSetDict "{'x':0.02, 'y':0.049, 'z':0.005, 'r':0.01}"
 runApplication topoSet
 
 # SPLIT MESH AS PER DIFFERENT ZONES
 runApplication splitMeshRegions -cellZones -overwrite 
 
 # setting initial conditions for each region in 0
-tee 0/gland/T 0/muscle/T 0/tissue/T  < T >/dev/null
-tee 0/gland/p 0/muscle/p 0/tissue/p  < p >/dev/null
+tee 0/gland/T 0/muscle/T 0/tissue/T 0/tumor/T < T >/dev/null
+tee 0/gland/p 0/muscle/p 0/tissue/p 0/tumor/p < p >/dev/null
 
 # RUN changeDictionary TO DEFINE INITIAL CONDITIONS FOR EACH REGION 
-for i in muscle gland tissue
+for i in muscle gland tissue tumor
 do
    runApplication -s $i changeDictionary -region $i
 done
 
-# SETTING METABOLIC HEAT GENERATION RATE OF TUMOR
-#runApplication pyFoamFromTemplate.py constant/tumor/fvOptions "{'r':0.005}"
-
 # RUN SOLVER ON SINGLE PROCESSOR
-
 runApplication pyFoamPlotRunner.py --hardcopy --progress chtMultiRegionSimpleFoam 
 
 # RUN REDO PLOT TO WRITE DATA FILES FROM PICKLED PLOTS
@@ -128,4 +103,3 @@ paraFoam -touchAll
 
 runApplication touch all.foam
 #runApplication paraview all.foam
-

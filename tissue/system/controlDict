@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     chtMultiRegionSimpleFoam;
+application     buoyantBoussinesqSimpleFoam;
 
 startFrom       startTime;
 
@@ -23,7 +23,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         1000;
+endTime         2000;
 
 deltaT          1;
 
@@ -31,33 +31,19 @@ writeControl    timeStep;
 
 writeInterval   100;
 
-purgeWrite      10;
+purgeWrite      0;
 
 writeFormat     ascii;
 
-writePrecision  7;
+writePrecision  6;
 
-writeCompression uncompressed;
+writeCompression off;
 
 timeFormat      general;
 
 timePrecision   6;
 
 runTimeModifiable true;
-/*
-functions
-{
-  fieldMinMax1
-    {
-        type        writeCellCentres;
-        libs        ("libfieldFunctionObjects.so");
-        
-        writeToFile yes;
-        log         yes;
-        location    yes;
-        mode        magnitude;
-        fields      (T);
-    }
-}
-*/
+
+
 // ************************************************************************* //

@@ -10,25 +10,13 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      surfaceFeatureExtractDict;
+    object      radiationProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-muscle.stl
-{
-    extractionMethod    extractFromSurface;
+radiation       off;
 
-    extractFromSurfaceCoeffs
-    {
-        // Mark edges whose adjacent surface normals are at an angle less
-        // than includedAngle as features
-        // - 0  : selects no edges
-        // - 180: selects all edges
-        includedAngle   150;
-    }
+radiationModel  none;
 
-    // Write options
-    writeFeatureEdgeMesh    yes;
-}
 
 // ************************************************************************* //

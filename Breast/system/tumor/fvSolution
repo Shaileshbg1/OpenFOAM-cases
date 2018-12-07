@@ -10,25 +10,43 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      surfaceFeatureExtractDict;
+    object      fvSolution;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-muscle.stl
+solvers
 {
-    extractionMethod    extractFromSurface;
-
-    extractFromSurfaceCoeffs
+    h
     {
-        // Mark edges whose adjacent surface normals are at an angle less
-        // than includedAngle as features
-        // - 0  : selects no edges
-        // - 180: selects all edges
-        includedAngle   150;
+        solver           PCG;
+        preconditioner   DIC;
+        tolerance        1e-04;
+        relTol           0.01;
     }
+    
+}
 
-    // Write options
-    writeFeatureEdgeMesh    yes;
+SIMPLE
+{
+    nNonOrthogonalCorrectors 3;
+
+residualControl
+    {
+        h
+        {
+            tolerance 1e-04;
+            relTol 0.1;
+        }
+    }
+    
+}
+
+relaxationFactors
+{
+    equations
+    {
+         h               0.99;
+    }
 }
 
 // ************************************************************************* //
