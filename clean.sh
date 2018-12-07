@@ -15,7 +15,7 @@ find /home/shailesh/Niramai/Niramai_cases/with_subprocess/gland/system -maxdepth
 rm -r 0/
 mkdir 0/
 
-find /home/shailesh/Niramai/Niramai_cases/with_subprocess/gland/ -maxdepth 1 -mindepth 1 -not -name T -not -name p -not -name 0 -not -name constant -not -name system -not -name changeDictionary.sh -not -name dataFile -exec rm -R {} \;
+find /home/shailesh/Niramai/Niramai_cases/with_subprocess/gland/ -maxdepth 1 -mindepth 1 -not -name T -not -name p -not -name 0 -not -name constant -not -name system -not -name changeDictionary.sh -exec rm -R {} \;
 rm -rf constant/gland/polyMesh
 rm -rf constant/muscle/polyMesh
 rm -rf constant/tissue/polyMesh
