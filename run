@@ -13,7 +13,7 @@ runApplication snappyHexMesh -overwrite               # snappy hex mesh to chise
 cd ../tumor/                                                    # move to tumor folder
 cleanCase
 runApplication blockMesh                          # base mesh for tumor region
-runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'x':0.02, 'y':0.049, 'z':0.005, 'r':0.01}"
+runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'x':0, 'y':0.049, 'z':0, 'r':0.01}"
 runApplication snappyHexMesh -overwrite               # snappy hex mesh to chisel into curved shape
 
 # TISSUE MESHING 
@@ -26,7 +26,7 @@ runApplication snappyHexMesh -overwrite               # snappy hex mesh to chise
 cd ../gland/                                                    # move to gland folder
 cleanCase
 runApplication blockMesh                          # base mesh for gland region
-runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'x':0.02, 'y':0.049, 'z':0.005, 'r':0.01}"
+runApplication pyFoamFromTemplate.py system/snappyHexMeshDict "{'x':0, 'y':0.049, 'z':0, 'r':0.01}"
 runApplication snappyHexMesh -overwrite # snappy hex mesh to chisel into curved shape
 
 # MERGE AND STITCH MUSCLE MESH ONTO GLAND              
@@ -61,11 +61,12 @@ runApplication stitchMesh -partial -toleranceDict toleranceDict -overwrite tumor
 runApplication checkMesh #-constant -allGeometry -allTopology
 
 # TOPOSET TO DEFINE DIFFERENT CELL ZONES
-runApplication pyFoamFromTemplate.py system/topoSetDict "{'x':0.02, 'y':0.049, 'z':0.005, 'r':0.01}"
+runApplication pyFoamFromTemplate.py system/topoSetDict "{'x':0, 'y':0.049, 'z':0, 'r':0.01}"
 runApplication topoSet
 
 # SPLIT MESH AS PER DIFFERENT ZONES
 runApplication splitMeshRegions -cellZones -overwrite 
+
 
 # setting initial conditions for each region in 0
 tee 0/gland/T 0/muscle/T 0/tissue/T 0/tumor/T < T >/dev/null
@@ -76,12 +77,12 @@ for i in muscle gland tissue tumor
 do
    runApplication -s $i changeDictionary -region $i
 done
-
+#
 # RUN SOLVER ON SINGLE PROCESSOR
-runApplication pyFoamPlotRunner.py --hardcopy --progress chtMultiRegionSimpleFoam 
+runApplication pyFoamPlotRunner.py --hardcopy --clear chtMultiRegionSimpleFoam 
 
 # RUN REDO PLOT TO WRITE DATA FILES FROM PICKLED PLOTS
-runApplication pyFoamRedoPlot.py --csv-files --pickle-file Gnuplotting.analyzed/pickledPlots
+runApplication pyFoamRedoPlot.py --csv-files --pickle-file Gnuplotting.analyzed/pickledPlots 
 
 # RUN CASE REPORT TO CHECK THE BOUNDARY CONDITIONS
 runApplication pyFoamCaseReport.py --short-bc .
@@ -103,3 +104,4 @@ paraFoam -touchAll
 
 runApplication touch all.foam
 #runApplication paraview all.foam
+	

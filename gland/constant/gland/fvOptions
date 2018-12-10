@@ -1,0 +1,97 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      fvOptions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+ 
+metabolic_heat_generation_gland
+{
+    type            scalarSemiImplicitSource;
+    active          true;
+ 
+    scalarSemiImplicitSourceCoeffs
+    {
+        selectionMode   cellZone; // all, cellSet, cellZone, points
+        cellZone         gland;
+        volumeMode      specific; // absolute;
+        injectionRateSuSp
+        {
+             h    (700 0);
+        }
+    }
+}
+
+/*
+blood_perfusion_gland
+{
+    type          scalarCodedSource;
+
+    active          true;
+    
+    name    sourceTime;
+
+  
+
+    scalarCodedSourceCoeffs
+    {
+         selectionMode   cellZone;
+         cellZone        gland;
+	 fields      (h);
+
+        codeInclude
+        #{
+
+        #};
+
+        codeCorrect
+        #{
+            Pout<< "**codeCorrect**" << endl;
+        #};
+
+
+        codeAddSup
+        #{
+	    const scalarField& Tm = mesh_.lookupObject<volScalarField>("T"); 
+            Tvol = Tm.weightedAverage(mesh_.V()).value();                //averageValue of the volScalarField
+            const vectorField& C = mesh_.C();                    //List of cellcentres
+	    const scalarField& V = mesh_.V();
+            scalarField& hSource = eqn.source();                //defining source
+            forAll(C, i)
+            {
+                hSource[i] += (Tvol - 310)*2400*V[i] ;
+            }
+            Pout << "***codeAddSup***" << endl;
+        #};
+
+        codeSetValue
+        #{
+            Pout<< "**codeSetValue**" << endl;
+        #};
+
+        // Dummy entry. Make dependent on above to trigger recompilation
+        code
+        #{
+            $codeInclude
+            $codeCorrect
+            $codeAddSup
+            $codeSetValue
+        #};
+    }
+
+    sourceTimeCoeffs
+    {
+         $scalarCodedSourceCoeffs;
+    }
+}
+*/

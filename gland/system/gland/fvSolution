@@ -9,42 +9,43 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       featureEdgeMesh;
-    object      points;
+    class       dictionary;
+    object      fvSolution;
 }
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-// Points
-(
-    (-0.072 0  -0.072)
-    ( 0.072 0  -0.072)
-    ( 0.072  0.072  -0.072)
-    (-0.072  0.072  -0.072)
-    (-0.072 0   0.072)
-    ( 0.072 0   0.072)
-    ( 0.072  0.072   0.072)
-    (-0.072  0.072   0.072)
-)
+solvers
+{
+    h
+    {
+        solver           PCG;
+        preconditioner   DIC;
+        tolerance        1e-06;
+        relTol           0.01;
+    }
+    
+}
 
-// Edges
-(
-(0 1)
-(1 2)
-(2 3)
-(3 0)
+SIMPLE
+{
+    nNonOrthogonalCorrectors 3;
+    
+   residualControl
+    {
+        h
+        {
+            tolerance 1e-6;
+            relTol 0.1;
+        }
+    }   
+}
 
-(4 5)
-(5 6)
-(6 7)
-(7 4)
-
-(0 4)
-(1 5)
-(2 6)
-(3 7)
-)
-
-
+relaxationFactors
+{
+    equations
+    {
+        h              0.99;
+    }
+}
 
 // ************************************************************************* //

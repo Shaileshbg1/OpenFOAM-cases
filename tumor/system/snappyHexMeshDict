@@ -18,7 +18,7 @@ FoamFile
 // Which of the steps to run
 castellatedMesh on;
 snap            on;
-addLayers       on;
+addLayers       off;
 
 
 geometry
@@ -27,7 +27,7 @@ geometry
     {
         type searchableSphere;
         centre (0 0.049 0);
-        radius 0.005;
+        radius 0.01;
     }
 
 };
@@ -70,7 +70,7 @@ castellatedMeshControls
     // 1 means normal 2:1 refinement restriction, larger means slower
     // refinement.
     //nCellsBetweenLevels 3;
-    nCellsBetweenLevels 3;
+    nCellsBetweenLevels 1;
 
 
 
@@ -142,7 +142,7 @@ castellatedMeshControls
     // Whether any faceZones (as specified in the refinementSurfaces)
     // are only on the boundary of corresponding cellZones or also allow
     // free-standing zone faces. Not used if there are no faceZones.
-    allowFreeStandingZoneFaces false;
+    allowFreeStandingZoneFaces true;
 }
 
 
@@ -157,10 +157,10 @@ snapControls
     //- Relative distance for points to be attracted by surface feature point
     //  or edge. True distance is this factor times local
     //  maximum edge length.
-    tolerance 4.0; // 4.0;
+    tolerance 2.0; // 4.0;
 
     //- Number of mesh displacement relaxation iterations.
-    nSolveIter 300; //300;
+    nSolveIter 30; //300;
 
     //- Maximum number of snapping relaxation iterations. Should stop
     //  before upon reaching a correct mesh.
@@ -175,7 +175,6 @@ snapControls
 
 
 
-
 // Settings for the layer addition.
 addLayersControls
 {
@@ -186,15 +185,12 @@ addLayersControls
     // Per final patch (so not geometry!) the layer information
     layers
     {
-       tumor_int
-        {
-            nSurfaceLayers 1;
-        }       
+              
     }
 
 
     // Expansion factor for layer mesh
-    expansionRatio 1.15;
+    expansionRatio 1.0;
 
     //- Wanted thickness of final added cell layer. If multiple layers
     //  is the thickness of the layer furthest away from the wall.
@@ -250,6 +246,8 @@ addLayersControls
 }
 
 
+
+
 // Generic mesh quality settings. At any undoable phase these determine
 // where to undo.
 meshQualityControls
@@ -264,12 +262,12 @@ meshQualityControls
     //- Max concaveness allowed. Is angle (in degrees) below which concavity
     //  is allowed. 0 is straight face, <0 would be convex face.
     //  Set to 180 to disable.
-    maxConcave 180;
+    maxConcave 80;
 
     //- Minimum pyramid volume. Is absolute volume of cell pyramid.
     //  Set to a sensible fraction of the smallest cell volume expected.
     //  Set to very negative number (e.g. -1E30) to disable.
-    minVol -1E30;
+    minVol 1e-13;
 
     //- Minimum quality of the tet formed by the face-centre
     //  and variable base point minimum decomposition triangles and
