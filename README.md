@@ -1,10 +1,10 @@
 # OpenFOAM-cases
 
-This repository has different conjugate heat transfer cases simulated on OpenFOAM5 with the help of its many utilities and automation of these cases using python and pyFoam.
+This repository has different conjugate heat transfer cases simulated on OpenFOAM5 with the help of its many utilities and automation of these cases using python and pyFoam, with visualization on paraview.
 
 The physical phenomenon that we are trying to understand and simulate is that of heat transfer inside a breast with malignant tissue (tumor). 
 
-The cases published here are the rough works which I carried out in setting up conjugate heat transfer cases in OpenFOAM using its (and some user defined) utilities. My work in any of the organizations is not published.
+The cases published here are the rough works which I carried out in setting up conjugate heat transfer cases in OpenFOAM using its (and some user defined) utilities, and visualization with paraview. My work in any of the organizations is not published.
 
 Learning objectives:
 1) Basic templates for setting up conjugate heat transfer cases in OpenFOAM with multiple materials.
