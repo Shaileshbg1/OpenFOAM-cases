@@ -6,4 +6,4 @@ cd ${0%/*} || exit 1    # Run from this directory
 
 rm -rf constant/tissue/polyMesh
 
-find /home/shailesh/Niramai/Niramai_cases/with_subprocess/tissue/ -maxdepth 1 -mindepth 1 -not -name cleanT -not -name runT -not -name 0 -not -name constant -not -name system -exec rm -R {} \;
+find <path_to_tissue_directory> -maxdepth 1 -mindepth 1 -not -name cleanT -not -name runT -not -name 0 -not -name constant -not -name system -exec rm -R {} \;
