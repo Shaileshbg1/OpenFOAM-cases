@@ -1,0 +1,96 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+$$ x_cord = x
+$$ y_cord = y
+$$ z_cord = z
+$$ r_val = r
+
+$$ gland_radius = gr
+
+actions
+(
+   
+    // tumor
+    {
+        name    tumorCellSet;
+        type    cellSet;
+        action  new;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   ($x_cord$ $y_cord$ $z_cord$);
+        radius   $r_val$;
+       }
+    }
+   
+    // set tumor cell zone from cell set
+    {
+        name    tumor;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set tumorCellSet;
+        }
+    }
+ 
+          
+      // gland
+    {
+        name    glandCellSet;
+        type    cellSet;
+        action  new;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   (0 0 0);
+        radius   $gland_radius$;
+       }
+    }
+
+     
+    // gland-tumor
+
+     {
+        name    glandCellSet;
+        type    cellSet;
+        action  delete;
+        source sphereToCell;
+        sourceInfo
+       {
+        centre   ($x_cord$ $y_cord$ $z_cord$);
+        radius   $r_val$;
+       }
+    }
+
+    // set gland cell zone from cell set
+    {
+        name    gland;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set glandCellSet;
+        }
+    }
+
+);
+
+
+// ************************************************************************* //
